@@ -14,8 +14,8 @@ Example usage:
     var player;
     function loadPlayer() {
       player = new gsPlayer('gsFrame1');
-      player.onNavigated = (section, screen) => {
-        alert('Player location changed to section ' + (section+1) + ', screen ' + (screen+1));
+      player.onNavigated = (data) => {
+        alert('Player location changed to section ' + (data.sectionIndex+1) + ', screen ' + (data.screenIndex+1));
       };
       player.onFinished = () => {
         alert('The Demo has completed.');
@@ -25,7 +25,7 @@ Example usage:
 </body>
 ```
 
-When requesting metadata about the guided simulation, the respose is in this format:
+Metadata object
 
 ```JavaScript
 {
@@ -38,5 +38,29 @@ When requesting metadata about the guided simulation, the respose is in this for
             screenCount: 'the count of screens in this section'
         }
     ]
+}
+```
+
+Navigated object
+
+```JavaScript
+{
+    action: 'tsgs.Navigated',
+    sectionIndex: 'the 0 based index of the new section'
+    screenIndex: 'the 0 based index of the new screen'
+    screenId: 'the unique ID of the new screen'
+}
+```
+
+ShapeClick object
+
+```JavaScript
+{
+    action: 'tsgs.ShapeClick',
+    sectionIndex: 'the 0 based index of the new section',
+    screenIndex: 'the 0 based index of the new screen',
+    screenId: 'the GUID identifying the screen',
+    shapeName: 'the name of the shape that was clicked',
+    shapeId: 'the unique ID of the shape that was clicked'
 }
 ```
