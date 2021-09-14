@@ -6,6 +6,7 @@ window.gsPlayer = function(elementId) {
     this.win = document.getElementById(elementId).contentWindow;
     // callbacks
     this.onNavigated = null;
+    this.onShapeClick = null;
     this.onMetadata = null;
     this.onFinished = null;
     // methods
@@ -21,6 +22,9 @@ window.gsPlayer = function(elementId) {
     this.gotoPage = function(section, screen) {
         this.win.postMessage({action: 'tsgs.Nav', nav: {sectionIndex:section, screenIndex:screen}}, '*');
     };
+    this.gotoScreen = function(screenId) {
+        this.win.postMessage({action: 'tsgs.Nav', screenId: screenId});
+    }
     this.getMetadata = function() {
         this.win.postMessage({action: 'tsgs.Metadata'}, '*');
     }
@@ -28,10 +32,8 @@ window.gsPlayer = function(elementId) {
         if (event.source == this.win && event.data) { 
             var data = event.data;
             if (data.action == 'tsgs.Navigated') {
-                this.sectionIndex = data.sectionIndex;
-                this.screenIndex = data.screenIndex;
                 if (this.onNavigated) {
-                    this.onNavigated(this.sectionIndex, this.screenIndex);
+                    this.onNavigated(data);
                 }
             } else if (data.action == 'tsgs.Metadata') {
                 this.metadata = data;
@@ -43,6 +45,10 @@ window.gsPlayer = function(elementId) {
             } else if (data.action == 'tsgs.EndScreen') {
                 if (this.onFinished) {
                     this.onFinished();
+                }
+            } else if (data.action == 'tsgs.ShapeClick') {
+                if (this.onShapeClick) {
+                    this.onShapeClick(data);
                 }
             }
         }
