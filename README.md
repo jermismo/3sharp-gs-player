@@ -32,7 +32,7 @@ The gsPlayer uses the following callback methods:
 - onGetVariable: called when info on a specific variable is received
 - onVariableChanged: called whenever a variable's state changes in the Guided Simulation
 
-Example usage:
+## Examples
 
 ```HTML
 <head>
