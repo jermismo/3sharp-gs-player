@@ -2,6 +2,36 @@
 
 This library allows you to control the 3Sharp Guided Simulation Player while it is hosted in your website using an iFrame.
 
+## Requests
+
+The gsPlayer library supports sending the following requests:
+
+*Metadata*
+- request metadata such as title and section information
+
+*Navigation*
+- next page
+- previous page
+- home page
+- navigate to a specific section/page
+
+*Variables*
+- get the list of all variables
+- get a specific variable
+- set a variable's value
+
+## Callbacks
+
+The gsPlayer uses the following callback methods:
+
+- onMetadata: called when metadata is received
+- onNavigated: called when navigation occurs in the Guided Simulation
+- onShapeClick: called when a Shape Click event occurs
+- onFinished: called when the last page is viewed
+- onVariableList: called when the list of all variables is received
+- onGetVariable: called when info on a specific variable is received
+- onVariableChanged: called whenever a variable's state changes in the Guided Simulation
+
 Example usage:
 
 ```HTML
