@@ -183,13 +183,13 @@ window.gsPlayer = function(elementId) {
                     this.onVariableList(data.variables);
                 }
             } else if (data.action == this.actions.variable) {
-				if (this.onGetVariable) {
-					this.onGetVariable(data);
-				}
+		if (this.onGetVariable) {
+		    this.onGetVariable(data);
+		}
             } else if (data.action == this.actions.variableChanged) {
-				if (this.onGetVariable) {
-					this.onVariableChanged(data);
-				}
+		if (this.onVariableChanged) {
+		    this.onVariableChanged(data);
+		}
             }
         }
     };
