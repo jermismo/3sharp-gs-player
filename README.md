@@ -24,6 +24,8 @@ The gsPlayer library supports sending the following requests:
 
 The gsPlayer uses the following callback methods:
 
+- onLoaded: called then the player finishes loading
+    - it may already be loaded, you can call checkLoaded to have the onLoaded message sent if that is the case
 - onMetadata: called when metadata is received
 - onNavigated: called when navigation occurs in the Guided Simulation
 - onShapeClick: called when a Shape Click event occurs
