@@ -11,7 +11,12 @@ window.gsPlayer = function(elementId) {
     this.win = document.getElementById(elementId).contentWindow;
     
     // callbacks
-    
+    /**
+     * The method to call when the player has loaded and is ready for calls.
+     * @returns nothing
+     */
+    this.onLoaded = null;
+
     /**
      * The method to call when navigation happens in the Guided Simulation.
      * @returns data: { sectionIndex, screenIndex, screenId }
@@ -55,6 +60,7 @@ window.gsPlayer = function(elementId) {
     
     // action names
     this.actions = {
+        loaded: 'tsgs.Loaded',
         shapeClick: 'tsgs.ShapeClick',
         navigated: 'tsgs.Navigated',
         endScreen: 'tsgs.EndScreen',
@@ -65,6 +71,7 @@ window.gsPlayer = function(elementId) {
     }
     // message names
     this.messages = {
+        loaded: 'tsgs.Loaded',
         next: 'tsgs.Next',
         previous: 'tsgs.Prev',
         home: 'tsgs.Home',
@@ -75,6 +82,13 @@ window.gsPlayer = function(elementId) {
         setVariable: 'tsgs.SetVariable',
     }
     
+    /**
+     * Request the player to send the loaded if it is already loaded
+     */
+    this.checkLoaded = function() {
+        this.win.postMessage({action: this.messages.loaded}, '*');
+    };
+
     /**
      * Navigate to the next page
      */
@@ -139,7 +153,11 @@ window.gsPlayer = function(elementId) {
     this.onMessage = function(event) {
         if (event.source == this.win && event.data) { 
             var data = event.data;
-            if (data.action == this.actions.navigated) {
+            if (data.action == this.actions.loaded) {
+                if (this.onLoaded){
+                    this.onLoaded();
+                }
+            } else if (data.action == this.actions.navigated) {
                 this.sectionIndex = data.sectionIndex;
 				this.screenIndex = data.screenIndex;
 				if (this.onNavigated) {
@@ -175,5 +193,5 @@ window.gsPlayer = function(elementId) {
             }
         }
     };
-	window.addEventListener('message', this.onMessage.bind(this));
+    window.addEventListener('message', this.onMessage.bind(this));
 }
