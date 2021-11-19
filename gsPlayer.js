@@ -147,7 +147,7 @@ window.gsPlayer = function(elementId) {
      * @param {string} value 
      */
     this.setVariable = function(key, value) {
-        this.win.postMessage({action: this.messages.getVariable, key: key, value: value}, '*')
+        this.win.postMessage({action: this.messages.setVariable, key: key, value: value}, '*')
     }
 
     this.onMessage = function(event) {
